@@ -1,0 +1,6 @@
+#!/bin/bash 
+
+echo $1
+
+#./cluster_FA_rank -in /home/yashvakilna/brian/pgms/estimate_smt_mc_LUT/smt_lut_output/$1_smt_lut.v -out ./gmm_log_clus_seg/$1_clus_seg.v
+./cluster_FA_rank -in ~/brian/pgms/estimate_smt_mc_LUT/cropped_smt/$1_clus_seg.v -out ./csv_folder/$1_clus_seg.v

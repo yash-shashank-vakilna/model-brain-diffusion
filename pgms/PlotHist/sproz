@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+echo $1
+
+./PlotHist_lin -in ../estimate_smt_mc_LUT/smt_lut_output/$1_smt_lut.v -out ../estimate_smt_mc_LUT/hs_lut_output/$1_hs_lut.csv

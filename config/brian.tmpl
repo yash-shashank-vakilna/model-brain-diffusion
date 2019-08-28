@@ -1,0 +1,107 @@
+/*
+ *  File: brian.tmpl
+ *
+ *  Generic BRIAN Makefile template.
+ */
+
+#define XCOMM #
+
+XCOMM -------------------------------------------------------------------------
+XCOMM Makefile generated from IMAKE_TEMPLATE and INCLUDE_IMAKEFILE
+XCOMM $Id: brian.tmpl
+
+       INSTBINDIR = $(TOP)/bin					/* programs */
+         BRIANINC = -I/opt/include/brian
+         BRIANLIB = -lBRIAN
+      BRIANEXTINC = -I/usr/include/openmpi
+      BRIANEXTLIB = -lBRIAN-ext -lmpi_cxx -lmpi
+              CCP = g++
+        CCOPTIONS = -O3 -Wall -Wextra -Weffc++ -std=c++11
+      CDEBUGFLAGS = 
+           CFLAGS = $(CDEBUGFLAGS) $(CCOPTIONS) $(DEFINES) $(BRIANINC)
+        CONFIGDIR = $(TOP)/config				/* build configuration information */
+               CP = cp
+      CURRENT_DIR = .
+          DEFINES = 
+          DOXYGEN = doxygen
+  EXTRA_LIBRARIES = 
+ EXTRA_LOAD_FLAGS = -Wl,-rpath $(INSTLIBDIR)
+     ICONFIGFILES = $(CONFIGDIR)/brian.tmpl $(CONFIGDIR)/brian.rules
+            IMAKE = imake					/* assume BINDIR in path */
+        IMAKE_CMD = $(IMAKE) -I$(CONFIGDIR) -Tbrian.tmpl $(IMAKE_DEFINES)
+    IMAKE_DEFINES = 						/* leave blank, for command line use only */
+          INSTALL = $(CONFIGDIR)/bsdinst.sh
+       INSTLIBDIR = /opt/lib
+     INSTBINFLAGS = -m 0755					/* install flags for programs */
+     INSTDATFLAGS = -m 0444					/* install flags for data files */
+     INSTINCFLAGS = -m 0444					/* install flags for headers */
+     INSTLIBFLAGS = -m 0755					/* install flags for libraries */
+     INSTPGMFLAGS = -s
+           LDLIBS = $(LDFLAGS) -L$(LIBDIR) $(BRIANLIB) $(SYS_LIBRARIES)
+        LDOPTIONS = $(CDEBUGFLAGS) $(CCOPTIONS) 
+           LIBDIR = /opt/lib
+               LN = ln -s
+             MAKE = make
+        MKDIRHIER = /bin/sh $(CONFIGDIR)/mkdirhier.sh
+               MV = mv
+          PACKAGE = Brian
+          PATHSEP = /						/* for building filenames */
+          RELDATE = 01-JUN-2017
+               RM = rm -f
+           RM_CMD = $(RM) *.BAK *.bak *.o *.par core errs ,* *~ *.so make.log
+            SHELL = /bin/sh
+    SYS_LIBRARIES = -llapack -lfftw3f -lfftw3 -lz -lm -lstdc++
+              TOP = $(HOME)/brian
+          VERSION = 3.0.0
+
+#include <brian.rules>
+
+XCOMM -------------------------------------------------------------------------
+XCOMM start of Imakefile
+#include INCLUDE_IMAKEFILE
+
+XCOMM -------------------------------------------------------------------------
+XCOMM common rules for all Makefiles - do not edit
+/*
+ * These need to be here so that rules in Imakefile occur first; the blank
+ * all is to make sure that an empty Imakefile doesn't default to make clean.
+ */
+emptyrule::
+
+CleanTarget()
+
+#ifndef IHaveSpecialMakefileTarget
+MakefileTarget()
+#endif
+
+#ifdef MakefileAdditions
+MakefileAdditions()
+#endif
+
+#ifdef IHaveSubdirs
+XCOMM -------------------------------------------------------------------------
+XCOMM rules for building in SUBDIRS - do not edit
+
+InstallSubdirs($(SUBDIRS))
+CleanSubdirs($(SUBDIRS))
+TagSubdirs($(SUBDIRS))
+MakefileSubdirs($(SUBDIRS))
+IncludesSubdirs($(SUBDIRS))
+UpdateDocSubdirs($(SUBDIRS))
+
+#else
+XCOMM -------------------------------------------------------------------------
+XCOMM empty rules for directories that do not have SUBDIRS - do not edit
+
+install::
+	@echo "install in $(CURRENT_DIR) done"
+
+Makefiles::
+
+includes::
+
+doc::
+	@echo "doc in $(CURRENT_DIR) done"
+
+#endif /* if subdirectory rules are needed */
+
